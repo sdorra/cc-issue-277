@@ -1,16 +1,12 @@
 import { allPosts } from "content-collections";
 import { notFound } from "next/navigation";
 import { MDXContent } from "@content-collections/mdx/react";
-import { Metadata } from "next";
+import { useRouter } from 'next/router'
 
-type Props = {
-  params: {
-    slug: string;
-  };
-};
+export default function Post() {
+  const router = useRouter()
 
-export default function Post({ params: { slug } }: Props) {
-  const post = allPosts.find((post) => post._meta.path === slug);
+  const post = allPosts.find((post) => post._meta.path === router.query.slug);
   if (!post) {
     return notFound();
   }
@@ -29,16 +25,4 @@ export default function Post({ params: { slug } }: Props) {
       </footer>
     </article>
   );
-}
-
-export function generateMetadata({ params: { slug } }: Props): Metadata {
-  const post = allPosts.find((post) => post._meta.path === slug);
-  if (!post) {
-    return notFound();
-  }
-
-  return {
-    title: post.title,
-    description: post.summary,
-  };
 }

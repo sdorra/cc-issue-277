@@ -3,7 +3,7 @@ import typographyPlugin from "@tailwindcss/typography";
 
 const config: Config = {
   content: [
-    "./app/**/*.tsx",
+    "./src/pages/**/*.tsx",
   ],
   theme: {
     extend: {
